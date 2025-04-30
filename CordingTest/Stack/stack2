@@ -1,0 +1,40 @@
+問題内容
+
+括弧の列が正しく対応している（VPS: Valid Parenthesis String）かを判定してください。
+•	有効な括弧列とは、開き括弧 ( と閉じ括弧 ) が正しくペアになっているものです。
+•	例：(())() は正しい、(() や ())( は正しくない。
+
+
+入力
+•	最初の行にテストケースの数 T (1 ≤ T ≤ 50) が与えられます。
+•	続く T 行には、各行に括弧のみからなる文字列（最大50文字）が与えられます。
+
+出力
+•	各括弧列について、正しい場合は YES、正しくない場合は NO を1行ずつ出力してください。
+
+答え
+T = int(input())
+
+for _ in range(T):
+    line = input()
+    stack = []
+    is_valid = True
+
+    for ch in line:
+        if ch == '(':
+            stack.append(ch)
+        else:  # ch == ')'
+            if stack:
+                stack.pop()
+            else:
+                is_valid = False
+                break
+
+    if stack:
+        is_valid = False
+
+    print("YES" if is_valid else "NO")
+
+＜気づいた点＞
+	•	) が多いパターンと、( が残るパターンをどちらもちゃんと考慮する必要があって、最初のうちは気づきにくかった。
+	•	スタックが空なのに ) が来たときと、最後にスタックに ( が残ってるときの2つを分けて考えるのがポイントだった。
